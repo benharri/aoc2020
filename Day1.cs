@@ -1,16 +1,30 @@
-﻿namespace aoc2020
+﻿using System.Collections.Generic;
+using System.Linq;
+using aoc2020.lib;
+
+namespace aoc2020
 {
-    internal class Day1 : Day
+    internal sealed class Day1 : Day
     {
         public override int DayNumber => 1;
+
+        private readonly List<int> _entries;
+
+        public Day1()
+        {
+            _entries = Input.Select(int.Parse).ToList();
+        }
+
         public override string Part1()
         {
-            return "";
+            var entry = _entries.First(e => _entries.Contains(2020 - e));
+            return $"{entry * (2020 - entry)}";
         }
 
         public override string Part2()
         {
-            return "";
+            var threes = _entries.Combinations(3).Single(e => e.Sum() == 2020);
+            return threes.Aggregate(1, (acc, val) => acc * val).ToString();
         }
     }
 }
