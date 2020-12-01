@@ -29,7 +29,7 @@ namespace aoc2020
             {
                 foreach (var d in days)
                 {
-                    d.AllParts();
+                    d.AllParts(true);
                 }
             }
         }

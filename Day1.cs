@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
-using aoc2020.lib;
 
 namespace aoc2020
 {
