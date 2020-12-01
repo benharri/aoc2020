@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using aoc2020.lib;
 
@@ -23,8 +24,13 @@ namespace aoc2020
 
         public override string Part2()
         {
-            var threes = _entries.Combinations(3).Single(e => e.Sum() == 2020);
-            return threes.Aggregate(1, (acc, val) => acc * val).ToString();
+            foreach (var i in _entries)
+                foreach (var j in _entries)
+                    foreach (var k in _entries)
+                        if (i + j + k == 2020)
+                            return $"{i * j * k}";
+            
+            return "";
         }
     }
 }

@@ -1,0 +1,9 @@
+﻿---
+kind: pipeline
+name: run
+
+steps:
+    - name: run
+      image: mcr.microsoft.com/dotnet/sdk:latest
+      commands:
+          - dotnet run
