@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Immutable;
 using System.Linq;
 
 namespace aoc2020
@@ -7,11 +7,11 @@ namespace aoc2020
     {
         public override int DayNumber => 1;
 
-        private readonly List<int> _entries;
+        private readonly ImmutableHashSet<int> _entries;
 
         public Day1()
         {
-            _entries = Input.Select(int.Parse).ToList();
+            _entries = Input.Select(int.Parse).ToImmutableHashSet();
         }
 
         public override string Part1()
