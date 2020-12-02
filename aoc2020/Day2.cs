@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace aoc2020
 {
-    internal sealed class Day2 : Day
+    public sealed class Day2 : Day
     {
         private readonly ImmutableList<Password> _passwords;
 

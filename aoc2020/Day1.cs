@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace aoc2020
 {
-    internal sealed class Day1 : Day
+    public sealed class Day1 : Day
     {
         private readonly ImmutableHashSet<int> _entries;
 
