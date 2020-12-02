@@ -5,14 +5,14 @@ namespace aoc2020
 {
     internal sealed class Day1 : Day
     {
-        public override int DayNumber => 1;
-
         private readonly ImmutableHashSet<int> _entries;
 
         public Day1()
         {
             _entries = Input.Select(int.Parse).ToImmutableHashSet();
         }
+
+        public override int DayNumber => 1;
 
         public override string Part1()
         {
@@ -23,11 +23,11 @@ namespace aoc2020
         public override string Part2()
         {
             foreach (var i in _entries)
-                foreach (var j in _entries)
-                    foreach (var k in _entries)
-                        if (i + j + k == 2020)
-                            return $"{i * j * k}";
-            
+            foreach (var j in _entries)
+            foreach (var k in _entries)
+                if (i + j + k == 2020)
+                    return $"{i * j * k}";
+
             return "";
         }
     }

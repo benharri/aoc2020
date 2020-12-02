@@ -17,20 +17,13 @@ namespace aoc2020
             {
                 var day = days.FirstOrDefault(d => d.DayNumber == dayNum);
                 if (day != null)
-                {
                     day.AllParts();
-                }
                 else
-                {
                     Console.WriteLine($"Day {dayNum} invalid or not yet implemented");
-                }
             }
             else
             {
-                foreach (var d in days)
-                {
-                    d.AllParts(true);
-                }
+                foreach (var d in days) d.AllParts(true);
             }
         }
     }

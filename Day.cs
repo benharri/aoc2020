@@ -8,6 +8,7 @@ namespace aoc2020
     public abstract class Day
     {
         public abstract int DayNumber { get; }
+
         public virtual IEnumerable<string> Input =>
             File.ReadLines($"input/day{DayNumber}.in");
 
@@ -19,14 +20,11 @@ namespace aoc2020
             Console.WriteLine($"Day {DayNumber}:");
             var s = new Stopwatch();
 
-            if (verbose)
-            {
-                s.Start();
-            }
+            if (verbose) s.Start();
 
             var part1 = Part1();
 
-            if (verbose) 
+            if (verbose)
             {
                 s.Stop();
                 Console.WriteLine($"Part 1 elapsed ticks: {s.ElapsedTicks}");
@@ -53,5 +51,3 @@ namespace aoc2020
         }
     }
 }
-
-
