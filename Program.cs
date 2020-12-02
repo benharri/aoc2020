@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace aoc2020
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main(string[] args)
         {
@@ -23,7 +23,7 @@ namespace aoc2020
             }
             else
             {
-                foreach (var d in days) d.AllParts(true);
+                foreach (var d in days) d.AllParts();
             }
         }
     }
