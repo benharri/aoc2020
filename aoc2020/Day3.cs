@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 
 namespace aoc2020
@@ -9,7 +10,7 @@ namespace aoc2020
 
         public Day3()
         {
-            _grid = Input.ToArray();
+            _grid = File.ReadLines("input/day3big.in").ToArray();
             _width = _grid[0].Length;
         }
 
@@ -32,17 +33,14 @@ namespace aoc2020
 
         public override string Part2()
         {
-            var slopes = new[]
-            {
-                (1, 1),
-                (3, 1),
-                (5, 1),
-                (7, 1),
-                (1, 2)
-            };
+            var xSlops = new[] {2, 3, 4, 5, 8, 9, 12, 16, 18, 24, 32, 36, 48, 54, 65};
+            var ySlops = new[] {1, 5, 7, 11, 13, 17, 19, 23, 25, 29, 31, 25, 37, 41, 47};
 
-            return slopes
-                .Select(s => CountSlope(s.Item1, s.Item2))
+            var slops = xSlops
+                .SelectMany(x => ySlops, (x, y) => (x, y))
+                .Select(s => CountSlope(s.Item1, s.Item2));
+
+            return slops
                 .Aggregate((acc, i) => acc * i)
                 .ToString();
         }
