@@ -1,5 +1,6 @@
 using System.IO;
 using System.Linq;
+using System.Numerics;
 
 namespace aoc2020
 {
@@ -36,12 +37,11 @@ namespace aoc2020
             var xSlops = new[] {2, 3, 4, 5, 8, 9, 12, 16, 18, 24, 32, 36, 48, 54, 65};
             var ySlops = new[] {1, 5, 7, 11, 13, 17, 19, 23, 25, 29, 31, 25, 37, 41, 47};
 
-            var slops = xSlops
+            return xSlops
                 .SelectMany(x => ySlops, (x, y) => (x, y))
-                .Select(s => CountSlope(s.Item1, s.Item2));
-
-            return slops
-                .Aggregate((acc, i) => acc * i)
+                .Select(s => CountSlope(s.Item1, s.Item2))
+                .Select(s => new BigInteger(s))
+                .Aggregate(BigInteger.Multiply)
                 .ToString();
         }
     }
