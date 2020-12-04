@@ -17,13 +17,13 @@ namespace aoc.tests
         [TestMethod]
         public void TestPart1()
         {
-            Assert.AreEqual("", _day4.Part1());
+            Assert.AreEqual("247", _day4.Part1());
         }
 
         [TestMethod]
         public void TestPart2()
         {
-            Assert.AreEqual("", _day4.Part2());
+            Assert.AreEqual("145", _day4.Part2());
         }
     }
 }
