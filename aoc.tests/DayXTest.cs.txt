@@ -4,26 +4,26 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace aoc.tests
 {
     [TestClass]
-    public class Day2Test
+    public class DayXTest
     {
-        private Day2 _day;
+        private DayX _day;
 
         [TestInitialize]
         public void Initialize()
         {
-            _day = new Day2();
+            _day = new DayX();
         }
 
         [TestMethod]
         public void TestPart1()
         {
-            Assert.AreEqual("556", _day.Part1());
+            Assert.AreEqual("", _day.Part1());
         }
 
         [TestMethod]
         public void TestPart2()
         {
-            Assert.AreEqual("605", _day.Part2());
+            Assert.AreEqual("", _day.Part2());
         }
     }
 }

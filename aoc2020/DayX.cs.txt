@@ -1,0 +1,16 @@
+namespace aoc2020
+{
+    public sealed class DayX : Day
+    {
+        public override int DayNumber => X;
+        public override string Part1()
+        {
+            return "";
+        }
+
+        public override string Part2()
+        {
+            return "";
+        }
+    }
+}
