@@ -27,9 +27,9 @@ namespace aoc2020
 
             if (verbose)
                 Console.WriteLine($"{s.ElapsedMilliseconds}ms elapsed");
-            
+
             s.Reset();
-            
+
             s.Start();
             var part2 = Part2();
             s.Stop();
