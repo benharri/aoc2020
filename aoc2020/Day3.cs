@@ -32,16 +32,10 @@ namespace aoc2020
 
         public override string Part2()
         {
-            var slopes = new[]
-            {
-                (1, 1),
-                (3, 1),
-                (5, 1),
-                (7, 1),
-                (1, 2)
-            };
+            var xSlopes = new[] {1, 3, 5, 7, 1};
+            var ySlopes = new[] {1, 1, 1, 1, 2};
 
-            return slopes
+            return xSlopes.Zip(ySlopes)
                 .Select(s => CountSlope(s.Item1, s.Item2))
                 .Aggregate((acc, i) => acc * i)
                 .ToString();
