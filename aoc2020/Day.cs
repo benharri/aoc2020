@@ -15,7 +15,7 @@ namespace aoc2020
         public abstract string Part1();
         public abstract string Part2();
 
-        public virtual void AllParts(bool verbose = false)
+        public virtual void AllParts(bool verbose = true)
         {
             Console.WriteLine($"Day {DayNumber}:");
             var s = new Stopwatch();
@@ -27,7 +27,7 @@ namespace aoc2020
             if (verbose)
             {
                 s.Stop();
-                Console.WriteLine($"Part 1 elapsed ticks: {s.ElapsedTicks}");
+                Console.WriteLine($"Part 1 elapsed: {s.ElapsedMilliseconds}ms");
             }
 
             Console.WriteLine(part1);
@@ -43,7 +43,7 @@ namespace aoc2020
             if (verbose)
             {
                 s.Stop();
-                Console.WriteLine($"Part 2 elapsed ticks: {s.ElapsedTicks}");
+                Console.WriteLine($"Part 2 elapsed: {s.ElapsedMilliseconds}ms");
             }
 
             Console.WriteLine(part2);
