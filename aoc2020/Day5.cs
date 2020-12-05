@@ -21,12 +21,13 @@ namespace aoc2020
 
         public override string Part1()
         {
-            return $"{_ids.Max()}";
+            return $"{_ids.Last()}";
         }
 
         public override string Part2()
         {
-            return $"{Enumerable.Range(_ids.First(), _ids.Count + 1).Single(i => !_ids.Contains(i))}";
+            // arithmetic sum of full series
+            return $"{(_ids.Count + 1) * (_ids.First() + _ids.Last()) / 2 - _ids.Sum()}";
         }
     }
 }
