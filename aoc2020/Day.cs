@@ -10,7 +10,10 @@ namespace aoc2020
         public abstract int DayNumber { get; }
 
         protected virtual IEnumerable<string> Input =>
-            File.ReadLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"input/day{DayNumber}.in"));
+            File.ReadLines(FileName);
+
+        protected virtual string FileName =>
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"input/day{DayNumber}.in");
 
         public abstract string Part1();
         public abstract string Part2();
