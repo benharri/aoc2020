@@ -23,7 +23,7 @@ namespace aoc.tests
         [TestMethod]
         public void TestPart2()
         {
-            Assert.AreEqual("", _day.Part2());
+            Assert.AreEqual("3254", _day.Part2());
         }
     }
 }
