@@ -11,7 +11,7 @@ namespace aoc2020
         {
             _rules = Input.Select(rule =>
                 {
-                    var spl = rule.Split(" contain", 2);
+                    var spl = rule.Split(" bags contain ", 2);
                     var outer = string.Join(' ', spl[0].Split(' ').Take(2));
                     var inner = spl[1].Split(", ").Select(ParseQuantity).Where(i => i != null);
                     return (outer, inner);
@@ -23,7 +23,6 @@ namespace aoc2020
 
         private static (int, string)? ParseQuantity(string arg)
         {
-            arg = arg.TrimStart();
             if (arg == "no other bags.") return null;
             var words = arg.Split(' ');
             return (int.Parse(words[0]), string.Join(' ', words[1..3]));
