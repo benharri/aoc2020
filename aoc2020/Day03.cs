@@ -3,7 +3,7 @@ using System.Linq;
 namespace aoc2020
 {
     /// <summary>
-    /// Day 3: <see href="https://adventofcode.com/2020/day/3">Toboggan Trajectory</see>
+    ///     Day 3: <see href="https://adventofcode.com/2020/day/3">Toboggan Trajectory</see>
     /// </summary>
     public sealed class Day03 : Day
     {

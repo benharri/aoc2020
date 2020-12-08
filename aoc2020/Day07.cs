@@ -4,7 +4,7 @@ using System.Linq;
 namespace aoc2020
 {
     /// <summary>
-    /// Day 7: <see href="https://adventofcode.com/2020/day/7">Handy Haversacks</see>
+    ///     Day 7: <see href="https://adventofcode.com/2020/day/7">Handy Haversacks</see>
     /// </summary>
     public sealed class Day07 : Day
     {

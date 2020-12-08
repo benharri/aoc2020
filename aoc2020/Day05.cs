@@ -5,7 +5,7 @@ using System.Linq;
 namespace aoc2020
 {
     /// <summary>
-    /// Day 5: <see href="https://adventofcode.com/2020/day/5">Binary Boarding</see>
+    ///     Day 5: <see href="https://adventofcode.com/2020/day/5">Binary Boarding</see>
     /// </summary>
     public sealed class Day05 : Day
     {

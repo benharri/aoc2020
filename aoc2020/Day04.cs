@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 namespace aoc2020
 {
     /// <summary>
-    /// Day 4: <see href="https://adventofcode.com/2020/day/4">Passport Processing</see>
+    ///     Day 4: <see href="https://adventofcode.com/2020/day/4">Passport Processing</see>
     /// </summary>
     public sealed class Day04 : Day
     {
