@@ -5,11 +5,14 @@ using System.Text.RegularExpressions;
 
 namespace aoc2020
 {
+    /// <summary>
+    /// Day 4: <see href="https://adventofcode.com/2020/day/4">Passport Processing</see>
+    /// </summary>
     public sealed class Day4 : Day
     {
         private readonly List<Passport> _passports;
 
-        public Day4()
+        public Day4() : base(4)
         {
             _passports = new List<Passport>();
 
@@ -28,8 +31,6 @@ namespace aoc2020
 
             if (a.Any()) _passports.Add(Passport.Parse(a));
         }
-
-        public override int DayNumber => 4;
 
         public override string Part1()
         {

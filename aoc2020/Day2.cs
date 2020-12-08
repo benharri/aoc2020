@@ -3,16 +3,17 @@ using System.Linq;
 
 namespace aoc2020
 {
+    /// <summary>
+    /// Day 2: <see href="https://adventofcode.com/2020/day/1">Password Philosophy</see>
+    /// </summary>
     public sealed class Day2 : Day
     {
         private readonly ImmutableList<Password> _passwords;
 
-        public Day2()
+        public Day2() : base(2)
         {
             _passwords = Input.Select(p => new Password(p)).ToImmutableList();
         }
-
-        public override int DayNumber => 2;
 
         public override string Part1()
         {

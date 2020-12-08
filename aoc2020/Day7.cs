@@ -3,11 +3,14 @@ using System.Linq;
 
 namespace aoc2020
 {
+    /// <summary>
+    /// Day 7: <see href="https://adventofcode.com/2020/day/7">Handy Haversacks</see>
+    /// </summary>
     public sealed class Day7 : Day
     {
         private readonly Dictionary<string, IEnumerable<(int, string)?>> _rules;
 
-        public Day7()
+        public Day7() : base(7)
         {
             _rules = Input.Select(rule =>
                 {
@@ -18,8 +21,6 @@ namespace aoc2020
                 })
                 .ToDictionary(t => t.outer, t => t.inner);
         }
-
-        public override int DayNumber => 7;
 
         private static (int, string)? ParseQuantity(string arg)
         {

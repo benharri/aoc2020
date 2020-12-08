@@ -3,12 +3,15 @@ using System.Linq;
 
 namespace aoc2020
 {
+    /// <summary>
+    /// Day 6: <see href="https://adventofcode.com/2020/day/6">Custom Customs</see>
+    /// </summary>
     public sealed class Day6 : Day
     {
         private readonly int _countPart1;
         private readonly int _countPart2;
 
-        public Day6()
+        public Day6() : base(6)
         {
             var alphabet = "abcedfghijklmnopqrstuvwxyz".ToCharArray();
             _countPart1 = 0;
@@ -37,8 +40,6 @@ namespace aoc2020
                 _countPart2 += alphabet.Count(a => lines.All(l => l.Contains(a)));
             }
         }
-
-        public override int DayNumber => 6;
 
         public override string Part1()
         {

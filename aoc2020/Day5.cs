@@ -4,11 +4,14 @@ using System.Linq;
 
 namespace aoc2020
 {
+    /// <summary>
+    /// Day 5: <see href="https://adventofcode.com/2020/day/5">Binary Boarding</see>
+    /// </summary>
     public sealed class Day5 : Day
     {
         private readonly ImmutableHashSet<int> _ids;
 
-        public Day5()
+        public Day5() : base(5)
         {
             _ids = Input
                 .Select(s =>
@@ -16,8 +19,6 @@ namespace aoc2020
                 .OrderBy(i => i)
                 .ToImmutableHashSet();
         }
-
-        public override int DayNumber => 5;
 
         public override string Part1()
         {

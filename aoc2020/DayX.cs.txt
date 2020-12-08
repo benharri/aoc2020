@@ -1,8 +1,14 @@
 namespace aoc2020
 {
+    /// <summary>
+    /// Day X: <see href="https://adventofcode.com/2020/day/X"></see>
+    /// </summary>
     public sealed class DayX : Day
     {
-        public override int DayNumber => X;
+        public DayX() : base(X)
+        {
+        }
+
         public override string Part1()
         {
             return "";

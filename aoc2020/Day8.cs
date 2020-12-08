@@ -2,18 +2,19 @@ using System.Linq;
 
 namespace aoc2020
 {
+    /// <summary>
+    /// Day 8: <see href="https://adventofcode.com/2020/day/8">Handheld Halting</see>
+    /// </summary>
     public sealed class Day8 : Day
     {
         private readonly (string instruction, int value)[] _instructions;
         private int _accumulator;
         private int _currentInstruction;
 
-        public Day8()
+        public Day8() : base(8)
         {
             _instructions = Input.Select(ParseLine).ToArray();
         }
-
-        public override int DayNumber => 8;
 
         private static (string, int) ParseLine(string line)
         {
