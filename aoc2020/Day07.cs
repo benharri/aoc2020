@@ -6,11 +6,11 @@ namespace aoc2020
     /// <summary>
     /// Day 7: <see href="https://adventofcode.com/2020/day/7">Handy Haversacks</see>
     /// </summary>
-    public sealed class Day7 : Day
+    public sealed class Day07 : Day
     {
         private readonly Dictionary<string, IEnumerable<(int, string)?>> _rules;
 
-        public Day7() : base(7)
+        public Day07() : base(7)
         {
             _rules = Input.Select(rule =>
                 {

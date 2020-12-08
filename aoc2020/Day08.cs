@@ -5,13 +5,13 @@ namespace aoc2020
     /// <summary>
     /// Day 8: <see href="https://adventofcode.com/2020/day/8">Handheld Halting</see>
     /// </summary>
-    public sealed class Day8 : Day
+    public sealed class Day08 : Day
     {
         private readonly (string instruction, int value)[] _instructions;
         private int _accumulator;
         private int _currentInstruction;
 
-        public Day8() : base(8)
+        public Day08() : base(8)
         {
             _instructions = Input.Select(ParseLine).ToArray();
         }

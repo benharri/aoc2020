@@ -5,12 +5,12 @@ namespace aoc2020
     /// <summary>
     /// Day 3: <see href="https://adventofcode.com/2020/day/3">Toboggan Trajectory</see>
     /// </summary>
-    public sealed class Day3 : Day
+    public sealed class Day03 : Day
     {
         private readonly string[] _grid;
         private readonly int _width;
 
-        public Day3() : base(3)
+        public Day03() : base(3)
         {
             _grid = Input.ToArray();
             _width = _grid[0].Length;

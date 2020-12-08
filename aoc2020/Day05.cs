@@ -7,11 +7,11 @@ namespace aoc2020
     /// <summary>
     /// Day 5: <see href="https://adventofcode.com/2020/day/5">Binary Boarding</see>
     /// </summary>
-    public sealed class Day5 : Day
+    public sealed class Day05 : Day
     {
         private readonly ImmutableHashSet<int> _ids;
 
-        public Day5() : base(5)
+        public Day05() : base(5)
         {
             _ids = Input
                 .Select(s =>

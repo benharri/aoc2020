@@ -6,11 +6,11 @@ namespace aoc2020
     /// <summary>
     /// Day 2: <see href="https://adventofcode.com/2020/day/1">Password Philosophy</see>
     /// </summary>
-    public sealed class Day2 : Day
+    public sealed class Day02 : Day
     {
         private readonly ImmutableList<Password> _passwords;
 
-        public Day2() : base(2)
+        public Day02() : base(2)
         {
             _passwords = Input.Select(p => new Password(p)).ToImmutableList();
         }

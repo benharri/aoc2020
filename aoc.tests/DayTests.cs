@@ -9,14 +9,14 @@ namespace aoc.tests
     public class DayTests
     {
         [DataTestMethod]
-        [DataRow(typeof(Day1), "751776", "42275090")]
-        [DataRow(typeof(Day2), "556", "605")]
-        [DataRow(typeof(Day3), "189", "1718180100")]
-        [DataRow(typeof(Day4), "247", "145")]
-        [DataRow(typeof(Day5), "878", "504")]
-        [DataRow(typeof(Day6), "6273", "3254")]
-        [DataRow(typeof(Day7), "169", "82372")]
-        [DataRow(typeof(Day8), "1654", "833")]
+        [DataRow(typeof(Day01), "751776", "42275090")]
+        [DataRow(typeof(Day02), "556",    "605")]
+        [DataRow(typeof(Day03), "189",    "1718180100")]
+        [DataRow(typeof(Day04), "247",    "145")]
+        [DataRow(typeof(Day05), "878",    "504")]
+        [DataRow(typeof(Day06), "6273",   "3254")]
+        [DataRow(typeof(Day07), "169",    "82372")]
+        [DataRow(typeof(Day08), "1654",   "833")]
         public void CheckAllDays(Type dayType, string part1, string part2)
         {
             // create day instance
