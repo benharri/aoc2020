@@ -3,7 +3,7 @@ using System.Diagnostics;
 using aoc2020;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace aoc.tests
+namespace aoc2020.test
 {
     [TestClass]
     public class DayTests
