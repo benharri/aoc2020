@@ -18,7 +18,7 @@ namespace aoc2020
             File.ReadLines(FileName);
 
         protected string FileName =>
-            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"input/day{DayNumber,2:0#}.in");
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"input/day{DayNumber,2:00}.in");
 
         public abstract string Part1();
         public abstract string Part2();

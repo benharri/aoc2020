@@ -17,25 +17,33 @@ namespace aoc2020
 
         public override string Part1()
         {
-            var i = 25;
-            while (_list.Skip(i - 25).Take(25).Combinations(2).Select(c => c.Sum()).Contains(_list[i])) i++;
-            _part1 = _list[i];
-            return $"{_list[i]}";
+            for (var i = 25; i < _list.Length - 25; i++)
+            {
+                var preamble = _list[(i - 25)..i];
+                if (!preamble.Any(num1 => preamble.Any(num2 => num1 + num2 == _list[i])))
+                {
+                    _part1 = _list[i];
+                    return $"{_part1}";
+                }
+            }
+
+            return "";
         }
 
         public override string Part2()
         {
-            for (var i = 0; i < _list.Length - 1; i++)
+            for (var i = 0; i < _list.Length; i++)
             {
-                var offset = 1;
-                while (_list.Skip(i).Take(offset).Sum() < _part1) offset++;
+                long sum = 0;
+                for (var j = i; j < _list.Length; j++)
+                {
+                    sum += _list[j];
+                    if (sum > _part1) break;
+                    if (sum != _part1) continue;
 
-                var subset = _list.Skip(i).Take(offset).ToArray();
-                if (subset.Sum() != _part1) continue;
-
-                var min = subset.Min();
-                var max = subset.Max();
-                return $"{min + max}";
+                    var subset = _list[i..(j + 1)].ToArray();
+                    return $"{subset.Min() + subset.Max()}";
+                }
             }
 
             return "";
