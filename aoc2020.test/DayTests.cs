@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using aoc2020;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace aoc2020.test

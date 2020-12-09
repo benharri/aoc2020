@@ -12,18 +12,18 @@ namespace aoc2020
             DayNumber = dayNumber;
         }
 
-        public int DayNumber { get; protected set; }
+        public int DayNumber { get; }
 
-        protected virtual IEnumerable<string> Input =>
+        protected IEnumerable<string> Input =>
             File.ReadLines(FileName);
 
-        protected virtual string FileName =>
+        protected string FileName =>
             Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"input/day{DayNumber,2:0#}.in");
 
         public abstract string Part1();
         public abstract string Part2();
 
-        public virtual void AllParts(bool verbose = true)
+        public void AllParts(bool verbose = true)
         {
             Console.WriteLine($"Day {DayNumber}:");
             var s = Stopwatch.StartNew();
