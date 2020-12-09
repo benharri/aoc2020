@@ -14,12 +14,13 @@ namespace aoc2020
                 : source.Remove(source.LastIndexOf(value, StringComparison.Ordinal));
         }
 
-        public static IEnumerable<IEnumerable<T>> DifferentCombinations<T>(this IEnumerable<T> elements, int k)
+        public static IEnumerable<IEnumerable<T>> Combinations<T>(this IEnumerable<T> elements, int k)
         {
             var enumerable = elements as T[] ?? elements.ToArray();
-            return k == 0 ? new[] { Array.Empty<T>() } :
-                enumerable.SelectMany((e, i) =>
-                    enumerable.Skip(i + 1).DifferentCombinations(k - 1).Select(c => (new[] {e}).Concat(c)));
+            return k == 0
+                ? new[] {Array.Empty<T>()}
+                : enumerable.SelectMany((e, i) =>
+                    enumerable.Skip(i + 1).Combinations(k - 1).Select(c => new[] {e}.Concat(c)));
         }
 
         /// <summary>

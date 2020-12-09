@@ -17,7 +17,7 @@ namespace aoc.tests
         [DataRow(typeof(Day06), "6273", "3254")]
         [DataRow(typeof(Day07), "169", "82372")]
         [DataRow(typeof(Day08), "1654", "833")]
-        [DataRow(typeof(Day09), "", "")]
+        [DataRow(typeof(Day09), "138879426", "23761694")]
         public void CheckAllDays(Type dayType, string part1, string part2)
         {
             // create day instance
