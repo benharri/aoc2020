@@ -1,11 +1,11 @@
 namespace aoc2020
 {
     /// <summary>
-    ///     Day X: <see href="https://adventofcode.com/2020/day/X"></see>
+    ///     Day 9: <see href="https://adventofcode.com/2020/day/9"></see>
     /// </summary>
-    public sealed class DayX : Day
+    public sealed class Day09 : Day
     {
-        public DayX() : base(X)
+        public Day09() : base(9)
         {
         }
 
