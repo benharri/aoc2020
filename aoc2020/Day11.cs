@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +23,15 @@ namespace aoc2020
             while (true)
             {
                 var next = prev.StepPart1();
-                if (next.Grid == prev.Grid) break;
+                var same = true;
+                for (var i = 0; i < next.Grid.Length; i++)
+                    if (!next.Grid[i].SequenceEqual(prev.Grid[i]))
+                    {
+                        same = false;
+                        break;
+                    }
+
+                if (same) break;
                 prev = next;
             }
 
@@ -35,7 +44,15 @@ namespace aoc2020
             while (true)
             {
                 var next = prev.StepPart2();
-                if (next.Grid == prev.Grid) break;
+                var same = true;
+                for (var i = 0; i < next.Grid.Length; i++)
+                    if (!next.Grid[i].SequenceEqual(prev.Grid[i]))
+                    {
+                        same = false;
+                        break;
+                    }
+
+                if (same) break;
                 prev = next;
             }
 
@@ -58,12 +75,19 @@ namespace aoc2020
             {
             }
 
+            private void PrintBoard()
+            {
+                Console.Clear();
+                foreach (var line in Grid)
+                    Console.WriteLine(line);
+            }
+
             public int TotalSeated =>
                 Grid.Sum(l => l.Count(c => c == '#'));
 
             public LifeGame StepPart1()
             {
-                var next = new LifeGame {_h = _h, _w = _w, Grid = Grid};
+                var next = new LifeGame {_h = _h, _w = _w, Grid = Grid.Select(s => s.ToArray()).ToArray()};
                 for (var y = 0; y < _h; y++)
                 for (var x = 0; x < _w; x++)
                     next.Grid[y][x] = Grid[y][x] switch
@@ -73,6 +97,7 @@ namespace aoc2020
                         _ => Grid[y][x]
                     };
 
+                // next.PrintBoard();
                 return next;
             }
 
