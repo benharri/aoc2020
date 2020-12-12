@@ -9,16 +9,13 @@ namespace aoc2020
     /// </summary>
     public sealed class Day11 : Day
     {
-        private readonly LifeGame _initialGame;
-
         public Day11() : base(11)
         {
-            _initialGame = new LifeGame(Input);
         }
 
         public override string Part1()
         {
-            var prev = _initialGame;
+            var prev = new LifeGame(Input);
 
             while (true)
             {
@@ -40,7 +37,7 @@ namespace aoc2020
 
         public override string Part2()
         {
-            var prev = _initialGame;
+            var prev = new LifeGame(Input);
             while (true)
             {
                 var next = prev.StepPart2();
@@ -118,7 +115,7 @@ namespace aoc2020
 
             public LifeGame StepPart2()
             {
-                var next = new LifeGame {_h = _h, _w = _w, Grid = Grid};
+                var next = new LifeGame {_h = _h, _w = _w, Grid = Grid.Select(s => s.ToArray()).ToArray()};
                 for (var y = 0; y < _h; y++)
                 for (var x = 0; x < _w; x++)
                     next.Grid[y][x] = Grid[y][x] switch
@@ -127,6 +124,8 @@ namespace aoc2020
                         '#' when CanSee(y, x) >= 5 => 'L',
                         _ => Grid[y][x]
                     };
+
+                // next.PrintBoard();
                 return next;
             }
 
