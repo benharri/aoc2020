@@ -29,7 +29,7 @@ namespace aoc2020
             var s = Stopwatch.StartNew();
             var part1 = Part1();
             s.Stop();
-            Console.Write($"Part1: {part1,-14} ");
+            Console.Write($"Part1: {part1,-15} ");
             Console.WriteLine(verbose ? $"{s.ScaleMilliseconds()}ms elapsed" : "");
 
             s.Reset();
@@ -37,7 +37,7 @@ namespace aoc2020
             s.Start();
             var part2 = Part2();
             s.Stop();
-            Console.Write($"Part2: {part2,-14} ");
+            Console.Write($"Part2: {part2,-15} ");
             Console.WriteLine(verbose ? $"{s.ScaleMilliseconds()}ms elapsed" : "");
 
             Console.WriteLine();
