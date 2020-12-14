@@ -24,10 +24,15 @@ namespace aoc2020
                     var str = line.Split("mask = ", 2)[1];
                     mask = bits = 0;
                     for (var i = 35; i >= 0; --i)
-                        if (str[35 - i] == 'X')
-                            mask |= (ulong) 1 << i;
-                        else if (str[35 - i] == '1')
-                            bits |= (ulong) 1 << i;
+                        switch (str[35 - i])
+                        {
+                            case 'X':
+                                mask |= (ulong) 1 << i;
+                                break;
+                            case '1':
+                                bits |= (ulong) 1 << i;
+                                break;
+                        }
                 }
                 else
                 {
