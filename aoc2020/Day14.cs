@@ -45,7 +45,7 @@ namespace aoc2020
 
         public override string Part2()
         {
-            var memory = new Dictionary<long, long>();
+            var memory = new Dictionary<ulong, ulong>();
             var mask = "";
 
             foreach (var line in Input)
@@ -58,8 +58,8 @@ namespace aoc2020
                 }
                 else
                 {
-                    var value = long.Parse(spl[2]);
-                    var addr = long.Parse(spl[0].Split(new[] {'[', ']'},
+                    var value = ulong.Parse(spl[2]);
+                    var addr = ulong.Parse(spl[0].Split(new[] {'[', ']'},
                         StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)[1]);
 
                     var floats = new List<int>();
@@ -70,22 +70,21 @@ namespace aoc2020
                                 floats.Add(i);
                                 break;
                             case '1':
-                                addr |= (long) 1 << (35 - i);
+                                addr |= (ulong) 1 << (35 - i);
                                 break;
                         }
 
                     if (floats.Any())
                     {
-                        var combos = new List<int>();
-                        combos.AddRange(floats);
+                        var combos = new List<ulong> { addr };
 
                         foreach (var i in floats)
                         {
-                            var newCombos = new List<int>();
+                            var newCombos = new List<ulong>();
                             foreach (var c in combos)
                             {
-                                newCombos.Add(c | (1 << (35 - i)));
-                                newCombos.Add(c & ~(1 << (35 - i)));
+                                newCombos.Add(c | ((ulong) 1 << (35 - i)));
+                                newCombos.Add(c & ~((ulong) 1 << (35 - i)));
                             }
 
                             combos = newCombos;
@@ -101,7 +100,7 @@ namespace aoc2020
                 }
             }
 
-            return $"{memory.Sum(w => w.Value)}";
+            return $"{memory.Aggregate<KeyValuePair<ulong, ulong>, ulong>(0, (current, w) => current + w.Value)}";
         }
     }
 }
