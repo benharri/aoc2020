@@ -27,10 +27,10 @@ namespace aoc2020
                         switch (str[35 - i])
                         {
                             case 'X':
-                                mask |= (ulong) 1 << i;
+                                mask |= 1UL << i;
                                 break;
                             case '1':
-                                bits |= (ulong) 1 << i;
+                                bits |= 1UL << i;
                                 break;
                         }
                 }
@@ -75,21 +75,21 @@ namespace aoc2020
                                 floats.Add(i);
                                 break;
                             case '1':
-                                addr |= (ulong) 1 << (35 - i);
+                                addr |= 1UL << (35 - i);
                                 break;
                         }
 
                     if (floats.Any())
                     {
-                        var combos = new List<ulong> { addr };
+                        var combos = new List<ulong> {addr};
 
                         foreach (var i in floats)
                         {
                             var newCombos = new List<ulong>();
                             foreach (var c in combos)
                             {
-                                newCombos.Add(c | ((ulong) 1 << (35 - i)));
-                                newCombos.Add(c & ~((ulong) 1 << (35 - i)));
+                                newCombos.Add(c | (1UL << (35 - i)));
+                                newCombos.Add(c & ~(1UL << (35 - i)));
                             }
 
                             combos = newCombos;
