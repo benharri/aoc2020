@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace aoc2020
@@ -17,6 +18,11 @@ namespace aoc2020
         public static double ScaleMilliseconds(this Stopwatch stopwatch)
         {
             return 1_000 * stopwatch.ElapsedTicks / (double) Stopwatch.Frequency;
+        }
+
+        public static bool Contains(this Range range, int i)
+        {
+            return i >= range.Start.Value && i <= range.End.Value;
         }
     }
 }
