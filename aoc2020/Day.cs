@@ -7,12 +7,14 @@ namespace aoc2020
 {
     public abstract class Day
     {
-        protected Day(int dayNumber)
+        protected Day(int dayNumber, string puzzleName)
         {
             DayNumber = dayNumber;
+            PuzzleName = puzzleName;
         }
 
         public int DayNumber { get; }
+        public string PuzzleName { get; }
 
         protected IEnumerable<string> Input =>
             File.ReadLines(FileName);
@@ -25,7 +27,7 @@ namespace aoc2020
 
         public void AllParts(bool verbose = true)
         {
-            Console.WriteLine($"Day {DayNumber}:");
+            Console.WriteLine($"Day {DayNumber,2}: {PuzzleName}");
             var s = Stopwatch.StartNew();
             var part1 = Part1();
             s.Stop();

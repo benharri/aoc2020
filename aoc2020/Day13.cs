@@ -3,7 +3,7 @@ using System.Linq;
 namespace aoc2020
 {
     /// <summary>
-    ///     Day 13: <see href="https://adventofcode.com/2020/day/13">Shuttle Search</see>
+    ///     Day 13: <see href="https://adventofcode.com/2020/day/13" />
     /// </summary>
     public sealed class Day13 : Day
     {
@@ -11,7 +11,7 @@ namespace aoc2020
         private readonly long _earliest;
         private readonly string[] _fullSchedule;
 
-        public Day13() : base(13)
+        public Day13() : base(13, "Shuttle Search")
         {
             _earliest = long.Parse(Input.First());
             _fullSchedule = Input.Last().Split(',');

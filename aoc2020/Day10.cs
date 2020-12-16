@@ -4,14 +4,14 @@ using System.Linq;
 namespace aoc2020
 {
     /// <summary>
-    ///     Day 10: <see href="https://adventofcode.com/2020/day/10">Adapter Array</see>
+    ///     Day 10: <see href="https://adventofcode.com/2020/day/10" />
     /// </summary>
     public sealed class Day10 : Day
     {
         private readonly int[] _adapters;
         private readonly long[] _memo;
 
-        public Day10() : base(10)
+        public Day10() : base(10, "Adapter Array")
         {
             var parsed = Input.Select(int.Parse).ToArray();
             // add socket and device to the list

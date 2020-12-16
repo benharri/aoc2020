@@ -6,13 +6,13 @@ using System.Text.RegularExpressions;
 namespace aoc2020
 {
     /// <summary>
-    ///     Day 4: <see href="https://adventofcode.com/2020/day/4">Passport Processing</see>
+    ///     Day 4: <see href="https://adventofcode.com/2020/day/4" />
     /// </summary>
     public sealed class Day04 : Day
     {
         private readonly List<Passport> _passports;
 
-        public Day04() : base(4)
+        public Day04() : base(4, "Passport Processing")
         {
             _passports = new List<Passport>();
 

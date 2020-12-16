@@ -3,7 +3,7 @@ using System.Linq;
 namespace aoc2020
 {
     /// <summary>
-    ///     Day 8: <see href="https://adventofcode.com/2020/day/8">Handheld Halting</see>
+    ///     Day 8: <see href="https://adventofcode.com/2020/day/8" />
     /// </summary>
     public sealed class Day08 : Day
     {
@@ -11,7 +11,7 @@ namespace aoc2020
         private int _accumulator;
         private int _currentInstruction;
 
-        public Day08() : base(8)
+        public Day08() : base(8, "Handheld Halting")
         {
             _instructions = Input.Select(ParseLine).ToArray();
         }

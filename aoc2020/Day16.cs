@@ -5,14 +5,14 @@ using System.Linq;
 namespace aoc2020
 {
     /// <summary>
-    ///     Day 16: <see href="https://adventofcode.com/2020/day/16">Ticket Translation</see>
+    ///     Day 16: <see href="https://adventofcode.com/2020/day/16" />
     /// </summary>
     public sealed class Day16 : Day
     {
         private readonly Dictionary<string, List<Range>> _rules;
         private readonly List<List<int>> _tickets;
 
-        public Day16() : base(16)
+        public Day16() : base(16, "Ticket Translation")
         {
             _tickets = new List<List<int>>();
             _rules = new Dictionary<string, List<Range>>();

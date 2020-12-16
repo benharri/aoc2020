@@ -5,11 +5,11 @@ using System.Linq;
 namespace aoc2020
 {
     /// <summary>
-    ///     Day 11: <see href="https://adventofcode.com/2020/day/11">Seating System</see>
+    ///     Day 11: <see href="https://adventofcode.com/2020/day/11" />
     /// </summary>
     public sealed class Day11 : Day
     {
-        public Day11() : base(11)
+        public Day11() : base(11, "Seating System")
         {
         }
 

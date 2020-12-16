@@ -3,11 +3,11 @@ using System;
 namespace aoc2020
 {
     /// <summary>
-    ///     Day 12: <see href="https://adventofcode.com/2020/day/12">Rain Risk</see>
+    ///     Day 12: <see href="https://adventofcode.com/2020/day/12" />
     /// </summary>
     public sealed class Day12 : Day
     {
-        public Day12() : base(12)
+        public Day12() : base(12, "Rain Risk")
         {
         }
 

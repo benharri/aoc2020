@@ -4,13 +4,13 @@ using System.Linq;
 namespace aoc2020
 {
     /// <summary>
-    ///     Day 1: <see href="https://adventofcode.com/2020/day/1">Report Repair</see>
+    ///     Day 1: <see href="https://adventofcode.com/2020/day/1" />
     /// </summary>
     public sealed class Day01 : Day
     {
         private readonly ImmutableHashSet<int> _entries;
 
-        public Day01() : base(1)
+        public Day01() : base(1, "Report Repair")
         {
             _entries = Input.Select(int.Parse).ToImmutableHashSet();
         }

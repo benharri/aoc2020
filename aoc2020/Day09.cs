@@ -3,14 +3,14 @@ using System.Linq;
 namespace aoc2020
 {
     /// <summary>
-    ///     Day 9: <see href="https://adventofcode.com/2020/day/9">Encoding Error</see>
+    ///     Day 9: <see href="https://adventofcode.com/2020/day/9" />
     /// </summary>
     public sealed class Day09 : Day
     {
         private readonly long[] _list;
         private long _part1;
 
-        public Day09() : base(9)
+        public Day09() : base(9, "Encoding Error")
         {
             _list = Input.Select(long.Parse).ToArray();
         }
