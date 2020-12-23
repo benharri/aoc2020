@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-
 namespace aoc2020
 {
     /// <summary>
-    ///     Day 18: <see href="https://adventofcode.com/2020/day/18" />
+    ///     Day 22: <see href="https://adventofcode.com/2020/day/22" />
     /// </summary>
-    public sealed class Day18 : Day
+    public sealed class Day22 : Day
     {
-        public Day18() : base(18, "Operation Order")
+        public Day22() : base(22, "Crab Combat")
         {
         }
 
