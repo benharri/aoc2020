@@ -5,7 +5,7 @@ namespace aoc2020
     /// </summary>
     public sealed class Day24 : Day
     {
-        public Day24() : base(24, "")
+        public Day24() : base(24, "Lobby Layout")
         {
         }
 
