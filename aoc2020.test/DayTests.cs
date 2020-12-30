@@ -27,6 +27,12 @@ namespace aoc2020.test
         [DataRow(typeof(Day17), "293", "1816")]
         [DataRow(typeof(Day18), "", "")]
         [DataRow(typeof(Day19), "", "")]
+        [DataRow(typeof(Day20), "", "")]
+        [DataRow(typeof(Day21), "", "")]
+        [DataRow(typeof(Day22), "", "")]
+        [DataRow(typeof(Day23), "", "")]
+        [DataRow(typeof(Day24), "", "")]
+        [DataRow(typeof(Day25), "", "")]
         public void CheckAllDays(Type dayType, string part1, string part2)
         {
             // create day instance
