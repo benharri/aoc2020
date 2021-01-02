@@ -72,15 +72,15 @@ namespace aoc2020
             {
             }
 
+            public int TotalSeated =>
+                Grid.Sum(l => l.Count(c => c == '#'));
+
             private void PrintBoard()
             {
                 Console.Clear();
                 foreach (var line in Grid)
                     Console.WriteLine(line);
             }
-
-            public int TotalSeated =>
-                Grid.Sum(l => l.Count(c => c == '#'));
 
             public LifeGame StepPart1()
             {
