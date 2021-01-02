@@ -26,7 +26,7 @@ namespace aoc2020.test
         [DataRow(typeof(Day16), "19093", "5311123569883")]
         // [DataRow(typeof(Day17), "293", "1816")]
         [DataRow(typeof(Day18), "12918250417632", "171259538712010")]
-        [DataRow(typeof(Day19), "", "")]
+        [DataRow(typeof(Day19), "160", "357")]
         [DataRow(typeof(Day20), "", "")]
         [DataRow(typeof(Day21), "", "")]
         [DataRow(typeof(Day22), "", "")]
