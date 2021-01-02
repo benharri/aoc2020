@@ -33,7 +33,7 @@ namespace aoc2020
             var sub = string.Join("|", _rules[key].Select(test => test.Length switch
             {
                 1 => test[0][0] == '"' ? test[0].Trim('"') : MakeRegexExpression(test[0]),
-                _ => $"{string.Join(string.Empty, test.Select(MakeRegexExpression))}"
+                _ => string.Join(string.Empty, test.Select(MakeRegexExpression))
             }));
             _stack.Pop();
             return _rules[key].Length > 1 ? $"({sub})" : sub;
@@ -42,8 +42,7 @@ namespace aoc2020
         public override string Part1()
         {
             var exp = new Regex($"^{MakeRegexExpression("0")}$");
-            var results = _messages.ToLookup(r => exp.IsMatch(r), r => r);
-            return $"{results[true].Count()}";
+            return $"{_messages.Count(m => exp.IsMatch(m))}";
         }
 
         public override string Part2()
@@ -52,8 +51,7 @@ namespace aoc2020
             _rules["8"] = new[] {new[] {"42"}, new[] {"42", "8"}};
             _rules["11"] = new[] {new[] {"42", "31"}, new[] {"42", "11", "31"}};
             var exp = new Regex($"^{MakeRegexExpression("0")}$");
-            var results = _messages.ToLookup(r => exp.IsMatch(r), r => r);
-            return $"{results[true].Count()}";
+            return $"{_messages.Count(m => exp.IsMatch(m))}";
         }
     }
 }
