@@ -41,6 +41,78 @@ namespace aoc2020
                             !_allPermutations.Any(t2 => t.TileId != t2.TileId && t.TopId == t2.BottomId))
                 .ToList();
         }
+
+        private int Roughness(Tile arg)
+        {
+            var seaMonster = new[]
+            {
+                "                  # ",
+                "#    ##    ##    ###",
+                " #  #  #  #  #  #   "
+            }.Select(s => s.ToArray()).ToArray();
+            
+            const int seaMonsterWidth = 20;
+            const int seaMonsterHeight = 3;
+            const int seaMonsterTiles = 15;
+
+            var placedTiles = new Dictionary<(int x, int y), Tile>();
+            bool NotPlaced(Tile tile) => placedTiles!.Values.All(t => t.TileId != tile.TileId);
+            char Grid(int i, int j) => placedTiles![(i / 8, j / 8)].Pixels[j % 8 + 1][i % 8 + 1];
+
+            bool HasSeaMonster((int x, int y) location)
+            {
+                for (var j = 0; j < seaMonsterHeight; j++)
+                for (var i = 0; i < seaMonsterWidth; i++)
+                {
+                    if (seaMonster![j][i] == ' ') continue;
+                    if (Grid(location.x + i, location.y + j) != '#') return false;
+                }
+
+                return true;
+            }
+
+            placedTiles[(0, 0)] = arg;
+            int x = 1, y = 0;
+            while (true)
+            {
+                placedTiles.TryGetValue((x - 1, y), out var left);
+                placedTiles.TryGetValue((x, y - 1), out var top);
+                if (left == null && top == null) break;
+
+                var firstMatch = _allPermutations
+                    .Where(t => (left is null || t.LeftId == left.RightId) &&
+                                (top is null || t.TopId == top.BottomId))
+                    .Where(NotPlaced)
+                    .FirstOrDefault();
+
+                if (firstMatch is not null)
+                {
+                    placedTiles[(x, y)] = firstMatch;
+                    x++;
+                }
+                else
+                {
+                    x = 0;
+                    y++;
+                }
+            }
+
+            var gridWidth = placedTiles.Keys.Max(t => t.x) + 1;
+            var gridHeight = placedTiles.Keys.Max(t => t.y) + 1;
+
+            var seaMonsterCount = Enumerable.Range(0, gridWidth * 8 - seaMonsterWidth)
+                .SelectMany(_ => Enumerable.Range(0, gridHeight * 8 - seaMonsterHeight), (i, j) => (i, j))
+                .Count(HasSeaMonster);
+            
+            if (seaMonsterCount == 0) return 0;
+
+            var roughness = 0;
+            for (var j = 0; j < gridHeight; j++)
+            for (var i = 0; i < gridWidth; i++)
+                if (Grid(x, y) == '#')
+                    roughness++;
+
+            return roughness - seaMonsterCount * seaMonsterTiles;
         }
 
         public override string Part1()
@@ -50,7 +122,7 @@ namespace aoc2020
 
         public override string Part2()
         {
-            return "";
+            return $"{_topLefts.Select(Roughness).First(r => r > 0)}";
         }
 
         private record Tile(int TileId, char[][] Pixels)
