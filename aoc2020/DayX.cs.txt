@@ -1,22 +1,21 @@
-namespace aoc2020
+namespace aoc2020;
+
+/// <summary>
+///     Day X: <see href="https://adventofcode.com/2020/day/X" />
+/// </summary>
+public sealed class DayX : Day
 {
-    /// <summary>
-    ///     Day X: <see href="https://adventofcode.com/2020/day/X" />
-    /// </summary>
-    public sealed class DayX : Day
+    public DayX() : base(X, "")
     {
-        public DayX() : base(X, "")
-        {
-        }
+    }
 
-        public override string Part1()
-        {
-            return "";
-        }
+    public override string Part1()
+    {
+        return "";
+    }
 
-        public override string Part2()
-        {
-            return "";
-        }
+    public override string Part2()
+    {
+        return "";
     }
 }
