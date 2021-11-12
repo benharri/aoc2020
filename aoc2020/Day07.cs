@@ -5,7 +5,7 @@ namespace aoc2020;
 /// </summary>
 public sealed class Day07 : Day
 {
-    private readonly Dictionary<string, IEnumerable<(int, string)?>> _rules;
+    private readonly Dictionary<string, IEnumerable<(int Weight, string Name)?>> _rules;
 
     public Day07() : base(7, "Handy Haversacks")
     {
@@ -26,10 +26,11 @@ public sealed class Day07 : Day
         return (int.Parse(words[0]), string.Join(' ', words[1..3]));
     }
 
-    private int Weight(string node)
-    {
-        return 1 + _rules[node].Sum(i => i.Value.Item1 * Weight(i.Value.Item2));
-    }
+    private int Weight(string node) =>
+        1 + _rules[node]
+            .Where(i => i.HasValue)
+            .Select(i => i!.Value)
+            .Sum(i => i.Weight * Weight(i.Name));
 
     public override string Part1()
     {
@@ -41,7 +42,7 @@ public sealed class Day07 : Day
         {
             node = start.Dequeue();
             foreach (var (container, contained) in _rules)
-                if (contained.Any(i => i.HasValue && i.Value.Item2 == node) && p.Add(container))
+                if (contained.Any(i => i.HasValue && i.Value.Name == node) && p.Add(container))
                     start.Enqueue(container);
 
             if (!start.Any()) break;

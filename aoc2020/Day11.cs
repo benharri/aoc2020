@@ -66,17 +66,11 @@ public sealed class Day11 : Day
 
         private LifeGame()
         {
+            Grid = Array.Empty<char[]>();
         }
 
         public int TotalSeated =>
             Grid.Sum(l => l.Count(c => c == '#'));
-
-        private void PrintBoard()
-        {
-            Console.Clear();
-            foreach (var line in Grid)
-                Console.WriteLine(line);
-        }
 
         public LifeGame StepPart1()
         {
@@ -94,20 +88,16 @@ public sealed class Day11 : Day
             return next;
         }
 
-        private char At(int y, int x)
-        {
-            return x < 0 || y < 0 || x >= _w || y >= _h ? '.' : Grid[y][x];
-        }
+        private char At(int y, int x) =>
+            x < 0 || y < 0 || x >= _w || y >= _h ? '.' : Grid[y][x];
 
-        private int CountAdjacent(int y, int x)
-        {
-            return new[]
+        private int CountAdjacent(int y, int x) =>
+            new[]
             {
-                    At(y - 1, x - 1), At(y - 1, x + 0), At(y - 1, x + 1),
-                    At(y + 0, x - 1), At(y + 0, x + 1),
-                    At(y + 1, x - 1), At(y + 1, x + 0), At(y + 1, x + 1)
-                }.Count(c => c == '#');
-        }
+                At(y - 1, x - 1), At(y - 1, x + 0), At(y - 1, x + 1),
+                At(y + 0, x - 1), At(y + 0, x + 1),
+                At(y + 1, x - 1), At(y + 1, x + 0), At(y + 1, x + 1)
+            }.Count(c => c == '#');
 
         public LifeGame StepPart2()
         {
@@ -125,15 +115,13 @@ public sealed class Day11 : Day
             return next;
         }
 
-        private int CanSee(int y, int x)
-        {
-            return new[]
+        private int CanSee(int y, int x) => 
+            new[]
             {
-                    TraceRay(y, x, -1, -1), TraceRay(y, x, -1, +0), TraceRay(y, x, -1, +1),
-                    TraceRay(y, x, +0, -1), TraceRay(y, x, +0, +1),
-                    TraceRay(y, x, +1, -1), TraceRay(y, x, +1, +0), TraceRay(y, x, +1, +1)
-                }.Count(c => c == '#');
-        }
+                TraceRay(y, x, -1, -1), TraceRay(y, x, -1, +0), TraceRay(y, x, -1, +1),
+                TraceRay(y, x, +0, -1), TraceRay(y, x, +0, +1),
+                TraceRay(y, x, +1, -1), TraceRay(y, x, +1, +0), TraceRay(y, x, +1, +1)
+            }.Count(c => c == '#');
 
         private char TraceRay(int y, int x, int dy, int dx)
         {

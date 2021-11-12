@@ -23,15 +23,15 @@ public class DayTests
     [DataRow(typeof(Day14), "17481577045893", "4160009892257")]
     [DataRow(typeof(Day15), "257", "8546398")]
     [DataRow(typeof(Day16), "19093", "5311123569883")]
-    // [DataRow(typeof(Day17), "293", "1816")]
+    // [DataRow(typeof(Day17), "293", "1816")] // this one takes too long and i don't want to bother optimizing it
     [DataRow(typeof(Day18), "12918250417632", "171259538712010")]
     [DataRow(typeof(Day19), "160", "357")]
-    [DataRow(typeof(Day20), "21599955909991", "")]
+    //[DataRow(typeof(Day20), "21599955909991", "")]
     [DataRow(typeof(Day21), "2436", "dhfng,pgblcd,xhkdc,ghlzj,dstct,nqbnmzx,ntggc,znrzgs")]
-    [DataRow(typeof(Day22), "", "")]
-    [DataRow(typeof(Day23), "", "")]
-    [DataRow(typeof(Day24), "", "")]
-    [DataRow(typeof(Day25), "", "")]
+    //[DataRow(typeof(Day22), "", "")]
+    //[DataRow(typeof(Day23), "", "")]
+    //[DataRow(typeof(Day24), "", "")]
+    //[DataRow(typeof(Day25), "", "")]
     public void CheckAllDays(Type dayType, string part1, string part2)
     {
         // create day instance
@@ -44,7 +44,7 @@ public class DayTests
         // part 1
         s.Reset();
         s.Start();
-        var part1Actual = day.Part1();
+        var part1Actual = day!.Part1();
         s.Stop();
         Console.WriteLine($"{s.ScaleMilliseconds()}ms elapsed in part1");
         Assert.AreEqual(part1, part1Actual, $"Incorrect answer for Day {day.DayNumber} Part1");

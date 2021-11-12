@@ -39,14 +39,14 @@ public sealed class Day04 : Day
 
     private class Passport
     {
-        private string _byr;
-        private string _cid;
-        private string _ecl;
-        private string _eyr;
-        private string _hcl;
-        private string _hgt;
-        private string _iyr;
-        private string _pid;
+        private string? _byr;
+        private string? _cid;
+        private string? _ecl;
+        private string? _eyr;
+        private string? _hcl;
+        private string? _hgt;
+        private string? _iyr;
+        private string? _pid;
 
         public bool IsValid =>
             _byr != null &&
@@ -95,7 +95,7 @@ public sealed class Day04 : Day
             }
 
             // height
-            if (_hgt.EndsWith("cm"))
+            if (_hgt!.EndsWith("cm"))
             {
                 var h = _hgt[..3];
                 if (int.TryParse(h, out var hgt))
@@ -110,7 +110,7 @@ public sealed class Day04 : Day
             }
             else if (_hgt.EndsWith("in"))
             {
-                var h = _hgt.Substring(0, 2);
+                var h = _hgt[..2];
                 if (int.TryParse(h, out var hgt))
                 {
                     if (hgt < 59 || hgt > 76)
@@ -127,7 +127,7 @@ public sealed class Day04 : Day
             }
 
             // hair color
-            if (!Regex.IsMatch(_hcl, "#[0-9a-f]{6}"))
+            if (!Regex.IsMatch(_hcl!, "#[0-9a-f]{6}"))
                 return false;
 
             // eye color
@@ -135,7 +135,7 @@ public sealed class Day04 : Day
                 return false;
 
             // passport id
-            if (_pid.Length != 9)
+            if (_pid != null && _pid.Length != 9)
                 return false;
 
             return true;
