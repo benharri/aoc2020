@@ -9,10 +9,8 @@ public sealed class Day08 : Day
     private int _accumulator;
     private int _currentInstruction;
 
-    public Day08() : base(8, "Handheld Halting")
-    {
+    public Day08() : base(8, "Handheld Halting") =>
         _instructions = Input.Select(ParseLine).ToArray();
-    }
 
     private static (string, int) ParseLine(string line)
     {

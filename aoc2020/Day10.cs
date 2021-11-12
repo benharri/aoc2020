@@ -48,8 +48,5 @@ public sealed class Day10 : Day
         return $"{ones * threes}";
     }
 
-    public override string Part2()
-    {
-        return $"{Connections(0)}";
-    }
+    public override string Part2() => $"{Connections(0)}";
 }

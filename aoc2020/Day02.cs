@@ -7,20 +7,14 @@ public sealed class Day02 : Day
 {
     private readonly ImmutableList<Password> _passwords;
 
-    public Day02() : base(2, "Password Philosophy")
-    {
+    public Day02() : base(2, "Password Philosophy") =>
         _passwords = Input.Select(p => new Password(p)).ToImmutableList();
-    }
 
-    public override string Part1()
-    {
-        return $"{_passwords.Count(p => p.IsValid)}";
-    }
+    public override string Part1() =>
+        $"{_passwords.Count(p => p.IsValid)}";
 
-    public override string Part2()
-    {
-        return $"{_passwords.Count(p => p.IsValidByIndex)}";
-    }
+    public override string Part2() =>
+        $"{_passwords.Count(p => p.IsValidByIndex)}";
 
     private class Password
     {

@@ -9,13 +9,7 @@ public sealed class Day25 : Day
     {
     }
 
-    public override string Part1()
-    {
-        return "";
-    }
+    public override string Part1() => "";
 
-    public override string Part2()
-    {
-        return "";
-    }
+    public override string Part2() => "";
 }

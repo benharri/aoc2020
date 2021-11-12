@@ -24,10 +24,7 @@ public sealed class Day03 : Day
         return hits;
     }
 
-    public override string Part1()
-    {
-        return $"{CountSlope(3, 1)}";
-    }
+    public override string Part1() => $"{CountSlope(3, 1)}";
 
     public override string Part2()
     {

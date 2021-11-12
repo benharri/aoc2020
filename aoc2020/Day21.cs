@@ -12,7 +12,7 @@ public sealed class Day21 : Day
     {
         _parsedFoods = Input.Select(line => line.TrimEnd(')').Split(" (contains "))
             .Select(split => (Allergens: split[1].Split(", "), Ingredients: split[0].Split(' ')));
-        
+
         _dangerousFoods = _parsedFoods
             .SelectMany(i => i.Allergens.Select(Allergen => (Allergen, i.Ingredients)))
             .GroupBy(
@@ -38,7 +38,7 @@ public sealed class Day21 : Day
         var part1 = _parsedFoods
             .SelectMany(i => i.Ingredients)
             .Count(i => !_dangerousFoods.Select(t => t.Ingredient).Contains(i));
-        
+
         return $"{part1}";
     }
 
@@ -47,7 +47,7 @@ public sealed class Day21 : Day
         var part2 = _dangerousFoods
             .OrderBy(i => i.Allergen)
             .Select(i => i.Ingredient);
-        
+
         return $"{string.Join(',', part2)}";
     }
 }

@@ -111,15 +111,11 @@ public sealed class Day20 : Day
         return roughness - seaMonsterCount * seaMonsterTiles;
     }
 
-    public override string Part1()
-    {
-        return $"{_topLefts.Select(t => t.TileId).Distinct().Aggregate(1L, (acc, next) => acc * next)}";
-    }
+    public override string Part1() =>
+        $"{_topLefts.Select(t => t.TileId).Distinct().Aggregate(1L, (acc, next) => acc * next)}";
 
-    public override string Part2()
-    {
-        return $"{_topLefts.Select(Roughness).First(r => r > 0)}";
-    }
+    public override string Part2() =>
+        $"{_topLefts.Select(Roughness).First(r => r > 0)}";
 
     private record Tile(int TileId, char[][] Pixels)
     {
@@ -129,23 +125,14 @@ public sealed class Day20 : Day
         internal int LeftId => GetId(z => (0, z));
         internal int RightId => GetId(z => (Size - 1, z));
 
-        private int GetId(Func<int, (int x, int y)> selector)
-        {
-            return Enumerable.Range(0, Size)
+        private int GetId(Func<int, (int x, int y)> selector) => Enumerable.Range(0, Size)
                 .Select(selector)
                 .Select((c, i) => (Pixels[c.x][c.y] == '#' ? 1 : 0) << i)
                 .Aggregate(0, (acc, next) => acc | next);
-        }
 
-        private Tile RotateClockwise()
-        {
-            return Transform((x, y, newPixels) => newPixels[x][Size - 1 - y] = Pixels[y][x]);
-        }
+        private Tile RotateClockwise() => Transform((x, y, newPixels) => newPixels[x][Size - 1 - y] = Pixels[y][x]);
 
-        private Tile Flip()
-        {
-            return Transform((x, y, newPixels) => newPixels[y][Size - 1 - x] = Pixels[y][x]);
-        }
+        private Tile Flip() => Transform((x, y, newPixels) => newPixels[y][Size - 1 - x] = Pixels[y][x]);
 
         private Tile Transform(Action<int, int, char[][]> transformFunc)
         {
@@ -170,9 +157,6 @@ public sealed class Day20 : Day
             }
         }
 
-        public string Format()
-        {
-            return $"Tile {TileId}:\n{string.Join("\n", Pixels.Select(p => new string(p)))}";
-        }
+        public string Format() => $"Tile {TileId}:\n{string.Join("\n", Pixels.Select(p => new string(p)))}";
     }
 }

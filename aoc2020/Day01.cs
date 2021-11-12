@@ -7,10 +7,8 @@ public sealed class Day01 : Day
 {
     private readonly ImmutableHashSet<int> _entries;
 
-    public Day01() : base(1, "Report Repair")
-    {
+    public Day01() : base(1, "Report Repair") =>
         _entries = Input.Select(int.Parse).ToImmutableHashSet();
-    }
 
     public override string Part1()
     {

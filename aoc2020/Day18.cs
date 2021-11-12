@@ -7,10 +7,8 @@ public sealed class Day18 : Day
 {
     private readonly List<string> _expressions;
 
-    public Day18() : base(18, "Operation Order")
-    {
+    public Day18() : base(18, "Operation Order") =>
         _expressions = Input.Select(line => line.Replace(" ", "")).ToList();
-    }
 
     private static long Calculate(string expr, Func<char, int> precedence)
     {
@@ -63,13 +61,9 @@ public sealed class Day18 : Day
         return expressionStack.Pop();
     }
 
-    public override string Part1()
-    {
-        return $"{_expressions.Sum(expr => Calculate(expr, c => c == '+' || c == '*' ? 1 : 0))}";
-    }
+    public override string Part1() =>
+        $"{_expressions.Sum(expr => Calculate(expr, c => c == '+' || c == '*' ? 1 : 0))}";
 
-    public override string Part2()
-    {
-        return $"{_expressions.Sum(expr => Calculate(expr, c => c switch { '+' => 2, '*' => 1, _ => 0 }))}";
-    }
+    public override string Part2() =>
+        $"{_expressions.Sum(expr => Calculate(expr, c => c switch { '+' => 2, '*' => 1, _ => 0 }))}";
 }

@@ -64,10 +64,7 @@ public sealed class Day11 : Day
             _w = Grid[0].Length;
         }
 
-        private LifeGame()
-        {
-            Grid = Array.Empty<char[]>();
-        }
+        private LifeGame() => Grid = Array.Empty<char[]>();
 
         public int TotalSeated =>
             Grid.Sum(l => l.Count(c => c == '#'));
@@ -115,7 +112,7 @@ public sealed class Day11 : Day
             return next;
         }
 
-        private int CanSee(int y, int x) => 
+        private int CanSee(int y, int x) =>
             new[]
             {
                 TraceRay(y, x, -1, -1), TraceRay(y, x, -1, +0), TraceRay(y, x, -1, +1),

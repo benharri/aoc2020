@@ -5,14 +5,12 @@ namespace aoc2020;
 /// </summary>
 public sealed class Day17 : Day
 {
-    private readonly Dictionary<(int x, int y, int z), char> _plane;
-    private readonly Dictionary<(int x, int y, int z, int w), char> _plane4;
+    private readonly Dictionary<(int x, int y, int z), char> _plane = new();
+    private readonly Dictionary<(int x, int y, int z, int w), char> _plane4 = new();
 
 
     public Day17() : base(17, "Conway Cubes")
     {
-        _plane = new Dictionary<(int x, int y, int z), char>();
-        _plane4 = new Dictionary<(int x, int y, int z, int w), char>();
         var input = Input.ToList();
 
         for (var x = 0; x < 32; x++)

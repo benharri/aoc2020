@@ -7,9 +7,9 @@ public sealed class Day07 : Day
 {
     private readonly Dictionary<string, IEnumerable<(int Weight, string Name)?>> _rules;
 
-    public Day07() : base(7, "Handy Haversacks")
-    {
-        _rules = Input.Select(rule =>
+    public Day07() : base(7, "Handy Haversacks") =>
+        _rules = Input
+            .Select(rule =>
             {
                 var spl = rule.Split(" bags contain ", 2);
                 var outer = string.Join(' ', spl[0].Split(' ').Take(2));
@@ -17,7 +17,6 @@ public sealed class Day07 : Day
                 return (outer, inner);
             })
             .ToDictionary(t => t.outer, t => t.inner);
-    }
 
     private static (int, string)? ParseQuantity(string arg)
     {
@@ -51,8 +50,5 @@ public sealed class Day07 : Day
         return $"{p.Count}";
     }
 
-    public override string Part2()
-    {
-        return $"{Weight("shiny gold") - 1}";
-    }
+    public override string Part2() => $"{Weight("shiny gold") - 1}";
 }

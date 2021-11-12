@@ -14,13 +14,7 @@ public static class Extensions
     /// </summary>
     /// <param name="stopwatch"></param>
     /// <returns></returns>
-    public static double ScaleMilliseconds(this Stopwatch stopwatch)
-    {
-        return 1_000 * stopwatch.ElapsedTicks / (double)Stopwatch.Frequency;
-    }
+    public static double ScaleMilliseconds(this Stopwatch stopwatch) => 1_000 * stopwatch.ElapsedTicks / (double)Stopwatch.Frequency;
 
-    public static bool Contains(this Range range, int i)
-    {
-        return i >= range.Start.Value && i <= range.End.Value;
-    }
+    public static bool Contains(this Range range, int i) => i >= range.Start.Value && i <= range.End.Value;
 }

@@ -17,14 +17,16 @@ public sealed class Day19 : Day
                 val: a[1].Split('|', StringSplitOptions.RemoveEmptyEntries)
                     .Select(s => s.Split(' ', StringSplitOptions.RemoveEmptyEntries)).ToArray()))
             .ToDictionary(a => a.key, a => a.val);
+
         _messages = Input.Skip(_rules.Count + 1).ToArray();
-        _stack = new Stack<string>();
+        _stack = new();
     }
 
     private string MakeRegexExpression(string key)
     {
         if (_stack.Count(s => s == key) > 10) return "x";
         _stack.Push(key);
+
         var sub = string.Join("|", _rules[key].Select(test => test.Length switch
         {
             1 => test[0][0] == '"' ? test[0].Trim('"') : MakeRegexExpression(test[0]),
