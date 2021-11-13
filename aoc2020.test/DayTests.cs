@@ -28,7 +28,7 @@ public class DayTests
     [DataRow(typeof(Day19), "160", "357")]
     //[DataRow(typeof(Day20), "21599955909991", "")]
     [DataRow(typeof(Day21), "2436", "dhfng,pgblcd,xhkdc,ghlzj,dstct,nqbnmzx,ntggc,znrzgs")]
-    //[DataRow(typeof(Day22), "", "")]
+    [DataRow(typeof(Day22), "32856", "33805")]
     //[DataRow(typeof(Day23), "", "")]
     //[DataRow(typeof(Day24), "", "")]
     //[DataRow(typeof(Day25), "", "")]
