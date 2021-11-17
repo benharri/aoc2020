@@ -72,13 +72,18 @@ public sealed class Day23 : Day
 
     public override string Part2()
     {
+        cups.Clear();
+        for (var i = 0; i < initialCups.Count; i++)
+            cups[initialCups[i]] = initialCups[(i + 1) % initialCups.Count];
+
+        // add a million cups
         cups[initialCups.Last()] = 10;
         for (var i = 10; i < 1_000_000; i++)
             cups.Add(i, i + 1);
-        cups[1_000_000] = initialCups.First();
+        cups[1_000_000] = current = initialCups.First();
 
         DoMoves(10_000_000);
 
-        return $"{cups[1] * cups[cups[1]]}";
+        return $"{(ulong)cups[1] * (ulong)cups[cups[1]]}";
     }
 }
