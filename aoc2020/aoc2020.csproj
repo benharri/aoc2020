@@ -14,10 +14,10 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Using Include="System.Collections.Generic"/>
-		<Using Include="System.Collections.Immutable"/>
-		<Using Include="System.Text"/>
-		<Using Include="System.Text.RegularExpressions"/>
+		<Using Include="System.Collections.Generic" />
+		<Using Include="System.Collections.Immutable" />
+		<Using Include="System.Text" />
+		<Using Include="System.Text.RegularExpressions" />
 	</ItemGroup>
 
 </Project>
