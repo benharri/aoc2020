@@ -5,158 +5,254 @@ namespace aoc2020;
 /// </summary>
 public sealed class Day20 : Day
 {
-    private readonly List<Tile> _allPermutations;
-    private readonly List<Tile> _topLefts;
-
     public Day20() : base(20, "Jurassic Jigsaw")
     {
+    }
+
+    public override string Part1()
+    {
+        var puzzlePieces = ParsePiecesFromInput(Input.ToArray());
+        var connections = FindConnections(puzzlePieces);
+        var cornerIds = connections
+            .Select(pair => (piece: pair.Key, nrConnections: pair.Value.Count))
+            .Where(connection => connection.nrConnections == 2)
+            .Select(connection => connection.piece.Id);
+
+        return $"{cornerIds.Aggregate((double)1, (curr, next) => curr * next)}";
+    }
+
+    public override string Part2()
+    {
+        var puzzlePieces = ParsePiecesFromInput(Input.ToArray());
+        var connections = FindConnections(puzzlePieces);
+        var puzzle = ComposePuzzle(connections);
+        var lines = ExtractImagesFromPuzzle(puzzle);
+        var numberSeaMonsters = TagSeaMonsters(lines);
+        var numberWaves = lines.Select(l => l.Count(c => c == '#')).Sum();
+        return $"{numberWaves - numberSeaMonsters * 15}";
+    }
+
+    private static IEnumerable<PuzzlePiece> ParsePiecesFromInput(string[] input)
+    {
+        var pieces = new List<PuzzlePiece>();
+        const int pieceHeight = 12;
+        for (var i = pieceHeight; i <= input.Length + 1; i += pieceHeight)
+        {
+            var lBound = i - pieceHeight;
+            var uBound = i - 1;
+            pieces.Add(PuzzlePiece.CreatePieceFromString(input[lBound..uBound]));
+        }
+
+        return pieces;
+    }
+
+    private static Dictionary<PuzzlePiece, List<PuzzlePiece>> FindConnections(IEnumerable<PuzzlePiece> puzzlePieces)
+    {
+        var sides = new Dictionary<string, PuzzlePiece>();
+        var connections = new Dictionary<PuzzlePiece, List<PuzzlePiece>>();
+
+        void AddConnection(PuzzlePiece p1, PuzzlePiece p2)
+        {
+            if (!connections.ContainsKey(p1)) connections.Add(p1, new List<PuzzlePiece>());
+            if (!connections.ContainsKey(p2)) connections.Add(p2, new List<PuzzlePiece>());
+            connections[p1].Add(p2);
+            connections[p2].Add(p1);
+        }
+
+        foreach (var piece in puzzlePieces)
+        foreach (var (original, flipped) in piece.SidesWithFlippedPaired.Value)
+        {
+            if (sides.ContainsKey(original))
+            {
+                var otherPiece = sides[original];
+                AddConnection(piece, otherPiece);
+            }
+            else if (sides.ContainsKey(flipped))
+            {
+                var otherPiece = sides[flipped];
+                AddConnection(piece, otherPiece);
+            }
+            else
+            {
+                sides.Add(original, piece);
+                sides.Add(flipped, piece);
+            }
+        }
+
+        return connections;
+    }
+
+    private static IEnumerable<PuzzlePiece[]> ComposePuzzle(Dictionary<PuzzlePiece, List<PuzzlePiece>> connections)
+    {
+        var sideSize = (int)Math.Sqrt(connections.Count);
+        var unprocessed = connections.Keys.ToHashSet();
+
+        // step 0: initialize puzzle array
+        var puzzle = new PuzzlePiece[sideSize][];
+        for (var i = 0; i < puzzle.Length; i++) puzzle[i] = new PuzzlePiece[sideSize];
+
+        // step1: take one of the angles (this will be our 0,0) and find its true orientation/side
+        var angle = connections.First(x => x.Value.Count == 2).Key;
+        puzzle[0][0] = RotatePieceToMatch00Position(angle, connections);
+        unprocessed.Remove(angle);
+
+        // step2: fill the first column
+        for (var i = 1; i < puzzle.Length; i++)
+        {
+            var previousPiece = puzzle[i - 1][0];
+            var bottomPiece = connections[previousPiece]
+                .Where(p => unprocessed.Contains(p))
+                .First(p => p.AllSidesWithFlipped.Value.Contains(previousPiece.BottomSide.Value));
+            puzzle[i][0] = bottomPiece.TransformSoTopMatchesWith(previousPiece.BottomSide.Value);
+            unprocessed.Remove(bottomPiece);
+        }
+
+        // step3: fill each row using the first value as starting point
+        foreach (var t in puzzle)
+            for (var c = 1; c < t.Length; c++)
+            {
+                var previousPiece = t[c - 1];
+                var rightPiece = connections[previousPiece]
+                    .Where(p => unprocessed.Contains(p))
+                    .First(p => p.AllSidesWithFlipped.Value.Contains(previousPiece.RightSide.Value));
+                t[c] = rightPiece.TransformSoLeftMatchesWith(previousPiece.RightSide.Value);
+                unprocessed.Remove(rightPiece);
+            }
+
+        return puzzle;
+    }
+
+    private static char[][] ExtractImagesFromPuzzle(IEnumerable<PuzzlePiece[]> puzzle)
+    {
+        const int pieceHeight = 10;
         var lines = new List<string>();
-        var tiles = new List<Tile>();
-        var currentTileId = 0;
 
-        foreach (var line in Input)
-            if (line.StartsWith("Tile "))
-            {
-                currentTileId = int.Parse(line.Split(' ', ':')[1]);
-            }
-            else if (line == "")
-            {
-                tiles.Add(new(currentTileId, lines.Select(l => l.ToCharArray()).ToArray()));
-                lines.Clear();
-            }
-            else
-            {
-                lines.Add(line);
-            }
+        foreach (var t in puzzle)
+            for (var line = 1; line < pieceHeight - 1; line++)
+                lines.Add(t.Aggregate("", (current, t1) => current + t1.GetLine(line)[1..^1]));
 
-        if (lines.Any()) tiles.Add(new(currentTileId, lines.Select(l => l.ToCharArray()).ToArray()));
-
-        _allPermutations = tiles.SelectMany(t => t.AllPermutations()).ToList();
-        _topLefts = _allPermutations
-            .Where(t => !_allPermutations.Any(t2 => t.TileId != t2.TileId && t.LeftId == t2.RightId) &&
-                        !_allPermutations.Any(t2 => t.TileId != t2.TileId && t.TopId == t2.BottomId))
-            .ToList();
+        return lines.Select(line => line.ToCharArray()).ToArray();
     }
 
-    private int Roughness(Tile arg)
+    private static PuzzlePiece RotatePieceToMatch00Position(
+        PuzzlePiece angle,
+        IReadOnlyDictionary<PuzzlePiece, List<PuzzlePiece>> connections)
     {
-        var seaMonster = new[]
-        {
-                "                  # ",
-                "#    ##    ##    ###",
-                " #  #  #  #  #  #   "
-            }.Select(s => s.ToArray()).ToArray();
+        var conn1 = connections[angle][0];
+        var conn2 = connections[angle][1];
 
-        const int seaMonsterWidth = 20;
-        const int seaMonsterHeight = 3;
-        const int seaMonsterTiles = 15;
+        var angleSides = angle.Sides.Value.ToHashSet();
+        var connectionsSides = conn1.SidesWithFlippedPaired.Value
+            .Concat(conn2.SidesWithFlippedPaired.Value)
+            .SelectMany(t => new[] { t.Item1, t.Item2 });
 
-        var placedTiles = new Dictionary<(int x, int y), Tile>();
-        bool NotPlaced(Tile tile) => placedTiles!.Values.All(t => t.TileId != tile.TileId);
-        char Grid(int i, int j) => placedTiles![(i / 8, j / 8)].Pixels[j % 8 + 1][i % 8 + 1];
-
-        bool HasSeaMonster((int x, int y) location)
-        {
-            for (var j = 0; j < seaMonsterHeight; j++)
-                for (var i = 0; i < seaMonsterWidth; i++)
-                {
-                    if (seaMonster![j][i] == ' ') continue;
-                    if (Grid(location.x + i, location.y + j) != '#') return false;
-                }
-
-            return true;
-        }
-
-        placedTiles[(0, 0)] = arg;
-        int x = 1, y = 0;
-        while (true)
-        {
-            placedTiles.TryGetValue((x - 1, y), out var left);
-            placedTiles.TryGetValue((x, y - 1), out var top);
-            if (left == null && top == null) break;
-
-            var firstMatch = _allPermutations
-                .Where(t => (left is null || t.LeftId == left.RightId) &&
-                            (top is null || t.TopId == top.BottomId))
-                .Where(NotPlaced)
-                .FirstOrDefault();
-
-            if (firstMatch is not null)
-            {
-                placedTiles[(x, y)] = firstMatch;
-                x++;
-            }
-            else
-            {
-                x = 0;
-                y++;
-            }
-        }
-
-        var gridWidth = placedTiles.Keys.Max(t => t.x) + 1;
-        var gridHeight = placedTiles.Keys.Max(t => t.y) + 1;
-
-        var seaMonsterCount = Enumerable.Range(0, gridWidth * 8 - seaMonsterWidth)
-            .SelectMany(_ => Enumerable.Range(0, gridHeight * 8 - seaMonsterHeight), (i, j) => (i, j))
-            .Count(HasSeaMonster);
-
-        if (seaMonsterCount == 0) return 0;
-
-        var roughness = 0;
-        for (var j = 0; j < gridHeight; j++)
-            for (var i = 0; i < gridWidth; i++)
-                if (Grid(x, y) == '#')
-                    roughness++;
-
-        return roughness - seaMonsterCount * seaMonsterTiles;
+        angleSides.ExceptWith(connectionsSides);
+        return angle.RotateUntilSidesCorrespondToTopLeft(angleSides);
     }
 
-    public override string Part1() =>
-        $"{_topLefts.Select(t => t.TileId).Distinct().Aggregate(1L, (acc, next) => acc * next)}";
-
-    public override string Part2() =>
-        $"{_topLefts.Select(Roughness).First(r => r > 0)}";
-
-    private record Tile(int TileId, char[][] Pixels)
+    private static int TagSeaMonsters(char[][] lines)
     {
-        private const int Size = 10;
-        internal int TopId => GetId(z => (z, 0));
-        internal int BottomId => GetId(z => (z, Size - 1));
-        internal int LeftId => GetId(z => (0, z));
-        internal int RightId => GetId(z => (Size - 1, z));
+        var images = new List<char[][]> { lines };
+        lines = lines.Rotate();
+        images.Add(lines);
+        lines = lines.Rotate();
+        images.Add(lines);
+        lines = lines.Rotate();
+        images.Add(lines);
+        lines = lines.FlipHorizontally();
+        images.Add(lines);
+        lines = lines.Rotate();
+        images.Add(lines);
+        lines = lines.Rotate();
+        images.Add(lines);
+        lines = lines.Rotate();
+        images.Add(lines);
 
-        private int GetId(Func<int, (int x, int y)> selector) => Enumerable.Range(0, Size)
-                .Select(selector)
-                .Select((c, i) => (Pixels[c.x][c.y] == '#' ? 1 : 0) << i)
-                .Aggregate(0, (acc, next) => acc | next);
+        return images.Select(CountSeaMonstersInImage).Sum();
+    }
 
-        private Tile RotateClockwise() => Transform((x, y, newPixels) => newPixels[x][Size - 1 - y] = Pixels[y][x]);
+    private static int CountSeaMonstersInImage(char[][] lines)
+    {
+        const string pattern = @"(?<=#.{77})#.{4}#{2}.{4}#{2}.{4}#{3}(?=.{77}#.{2}#.{2}#.{2}#.{2}#.{2}#)";
+        var singleLine = lines.Aggregate("", (curr, next) => curr + new string(next));
+        var matches = Regex.Matches(singleLine, pattern);
+        return matches.Count;
+    }
 
-        private Tile Flip() => Transform((x, y, newPixels) => newPixels[y][Size - 1 - x] = Pixels[y][x]);
+    private class PuzzlePiece
+    {
+        public readonly long Id;
+        private readonly char[][] _piece;
+        private readonly Lazy<string> _topSide;
+        public readonly Lazy<string> RightSide;
+        public readonly Lazy<string> BottomSide;
+        private readonly Lazy<string> _leftSide;
+        public readonly Lazy<string[]> Sides;
+        public readonly Lazy<HashSet<string>> AllSidesWithFlipped;
+        public readonly Lazy<(string, string)[]> SidesWithFlippedPaired;
 
-        private Tile Transform(Action<int, int, char[][]> transformFunc)
+        public static PuzzlePiece CreatePieceFromString(string[] pieceWithId)
         {
-            var newPixels = Enumerable.Repeat(false, Size).Select(_ => new char[Size]).ToArray();
-
-            for (var y = 0; y < Size; y++)
-                for (var x = 0; x < Size; x++)
-                    transformFunc(x, y, newPixels);
-
-            return new(TileId, newPixels);
+            var id = long.Parse(pieceWithId[0][5..^1]);
+            var piece = pieceWithId[1..].Select(x => x.ToCharArray()).ToArray();
+            return new PuzzlePiece(id, piece);
         }
 
-        internal IEnumerable<Tile> AllPermutations()
+        private PuzzlePiece(long id, char[][] piece)
         {
-            var tile = this;
-            for (var i = 1; i <= 8; i++)
+            Id = id;
+            _piece = piece;
+
+            _topSide = new Lazy<string>(() => new string(piece[0]));
+            RightSide = new Lazy<string>(() => new string(piece.Select(line => line[^1]).ToArray()));
+            BottomSide = new Lazy<string>(() => new string(piece[^1].Reverse().ToArray()));
+            _leftSide = new Lazy<string>(() => new string(piece.Select(line => line[0]).Reverse().ToArray()));
+            Sides = new Lazy<string[]>(() => new[]
+                { _topSide.Value, RightSide.Value, BottomSide.Value, _leftSide.Value });
+            SidesWithFlippedPaired = new Lazy<(string, string)[]>(() => CalculateSidesWithFlipped(this));
+            AllSidesWithFlipped = new Lazy<HashSet<string>>(() => CalculateAllSidesWithFlipped(this));
+        }
+
+        public override bool Equals(object? obj) => obj is PuzzlePiece piece && Id == piece.Id;
+        public override int GetHashCode() => HashCode.Combine(Id);
+        public override string ToString() => Id.ToString();
+
+        public PuzzlePiece TransformSoTopMatchesWith(string sideToMatch) =>
+            TransformSoSideMatchesWith(new string(sideToMatch.Reverse().ToArray()), p => p._topSide.Value);
+
+        public PuzzlePiece TransformSoLeftMatchesWith(string sideToMatch) =>
+            TransformSoSideMatchesWith(new string(sideToMatch.Reverse().ToArray()), p => p._leftSide.Value);
+
+        private PuzzlePiece TransformSoSideMatchesWith(string sideToMatch, Func<PuzzlePiece, string> getSide)
+        {
+            var side = getSide(this);
+            if (side == sideToMatch) return this;
+            return Sides.Value.ToHashSet().Contains(sideToMatch)
+                ? Rotated().TransformSoSideMatchesWith(sideToMatch, getSide)
+                : Flipped().TransformSoSideMatchesWith(sideToMatch, getSide);
+        }
+
+        public PuzzlePiece RotateUntilSidesCorrespondToTopLeft(IReadOnlySet<string> sides) =>
+            sides.Contains(_leftSide.Value) && sides.Contains(_topSide.Value)
+                ? this
+                : Rotated().RotateUntilSidesCorrespondToTopLeft(sides);
+
+        private PuzzlePiece Rotated() => new(Id, _piece.Rotate());
+
+        private PuzzlePiece Flipped() => new(Id, _piece.FlipHorizontally());
+
+        public string GetLine(int l) => new(_piece[l]);
+
+        private static (string, string)[] CalculateSidesWithFlipped(PuzzlePiece piece) =>
+            new (string, string)[]
             {
-                yield return tile;
-                if (i == 4) tile = Flip();
-                else if (i == 8) yield break;
-                tile = tile.RotateClockwise();
-            }
-        }
+                (piece._topSide.Value, new string(piece._topSide.Value.Reverse().ToArray())),
+                (piece.RightSide.Value, new string(piece.RightSide.Value.Reverse().ToArray())),
+                (piece.BottomSide.Value, new string(piece.BottomSide.Value.Reverse().ToArray())),
+                (piece._leftSide.Value, new string(piece._leftSide.Value.Reverse().ToArray())),
+            };
 
-        public string Format() => $"Tile {TileId}:\n{string.Join("\n", Pixels.Select(p => new string(p)))}";
+        private static HashSet<string> CalculateAllSidesWithFlipped(PuzzlePiece piece) =>
+            piece.Sides.Value.Concat(piece.Sides.Value.Select(s => new string(s.Reverse().ToArray()))).ToHashSet();
     }
 }

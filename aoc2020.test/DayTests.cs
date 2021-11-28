@@ -26,7 +26,7 @@ public class DayTests
     // [DataRow(typeof(Day17), "293", "1816")] // this one takes too long and i don't want to bother optimizing it
     [DataRow(typeof(Day18), "12918250417632", "171259538712010")]
     [DataRow(typeof(Day19), "160", "357")]
-    //[DataRow(typeof(Day20), "21599955909991", "")]
+    [DataRow(typeof(Day20), "21599955909991", "2495")]
     [DataRow(typeof(Day21), "2436", "dhfng,pgblcd,xhkdc,ghlzj,dstct,nqbnmzx,ntggc,znrzgs")]
     [DataRow(typeof(Day22), "32856", "33805")]
     [DataRow(typeof(Day23), "36542897", "562136730660")]
