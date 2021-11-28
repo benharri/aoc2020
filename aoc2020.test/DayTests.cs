@@ -31,7 +31,7 @@ public class DayTests
     [DataRow(typeof(Day22), "32856", "33805")]
     [DataRow(typeof(Day23), "36542897", "562136730660")]
     [DataRow(typeof(Day24), "282", "3445")]
-    //[DataRow(typeof(Day25), "", "")]
+    [DataRow(typeof(Day25), "11707042", "")]
     public void CheckAllDays(Type dayType, string part1, string part2)
     {
         // create day instance
